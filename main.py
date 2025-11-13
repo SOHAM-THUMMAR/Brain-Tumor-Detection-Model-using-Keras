@@ -10,7 +10,8 @@ import glob
 import keras
 from keras.layers import Conv2D, MaxPool2D, Dropout, Flatten, Dense, BatchNormalization, GlobalAvgPool2D
 from keras.models import Sequential
-from keras.preprocessing.image import ImageDataGenerator
+
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 #cnn model
 def Model():
@@ -38,7 +39,19 @@ def Model():
     model.summary()
 
 # preaparing data using data generator
-
+def imagePreaparation(path):
+    
+    # ip : Path
+    # op : processed images
+    
+    imageData = ImageDataGenerator(zoom_range = .2, shear_range = .2, rescale = 1/255, horizontal_flip = True)
+    image = imageData.flow_from_directory(directory = path,target_size = (224,224), batch_size = 32, class_mode = "binary")
+    
+    return image
+# run
+Model()
+path = "data/Training"
+trainingData = imagePreaparation(path)
 
 
 
