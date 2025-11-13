@@ -1,10 +1,6 @@
 # general libraries
 import numpy as np
 import matplotlib.pyplot as plt
-import os
-import math
-import shutil
-import glob
 
 # main libraries
 import keras
@@ -39,20 +35,55 @@ def Model():
     model.summary()
 
 # preaparing data using data generator
-def imagePreaparation(path):
+def imagePreaparation1(path):
     
     # ip : Path
     # op : processed images
     
-    imageData = ImageDataGenerator(zoom_range = .2, shear_range = .2, rescale = 1/255, horizontal_flip = True)
-    image = imageData.flow_from_directory(directory = path,target_size = (224,224), batch_size = 32, class_mode = "binary")
+    imageData = ImageDataGenerator(zoom_range = .2,         #data augmentation
+                                   shear_range = .2, 
+                                   rescale = 1/255, 
+                                   horizontal_flip = True)
+    
+    image = imageData.flow_from_directory(directory = path, 
+                                          target_size = (224,224), 
+                                          batch_size = 32, 
+                                          class_mode = "binary")
     
     return image
+
+
+def imagePreaparation2(path):
+    
+    # ip : Path
+    # op : processed images
+    
+    imageData = ImageDataGenerator(rescale = 1/255)
+    
+    image = imageData.flow_from_directory(directory = path, 
+                                          target_size = (224,224), 
+                                          batch_size = 32, 
+                                          class_mode = "binary")
+    
+    return image
+
+
+
+
+
+
+
+
+
+
+
+
 # run
 Model()
-path = "data/Training"
-trainingData = imagePreaparation(path)
-
+tainingDataPath = "data/Training"
+trainingData = imagePreaparation1(tainingDataPath)
+testingDataPath = "data/Testing"
+testingData = imagePreaparation2(testingDataPath)
 
 
 
