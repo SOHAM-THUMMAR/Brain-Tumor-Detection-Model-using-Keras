@@ -77,7 +77,6 @@ validationDataPath = "data/Validation"
 validationData = imagePreaparation2(validationDataPath)
 
 # early stopping and model checking
-
 # early stopping
 es = EarlyStopping(monitor="val_accuracy", 
                    min_delta=.01, 
