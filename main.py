@@ -4,11 +4,14 @@ import matplotlib.pyplot as plt
 
 # main libraries
 import keras
+import tensorflow as tf
 from keras.layers import Conv2D, MaxPool2D, Dropout, Flatten, Dense, BatchNormalization, GlobalAvgPool2D
 from keras.models import Sequential
 from keras.callbacks import ModelCheckpoint, EarlyStopping
 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+
+print(tf.config.list_physical_devices('GPU'))
 
 #cnn model
 
