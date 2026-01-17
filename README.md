@@ -90,16 +90,3 @@ This project is open-source. You may add a license file to define usage and dist
 
 🙌 Author
 Developed by Soham Thummar
-
-yaml
-Copy code
-
----
-
-If you want, I can also:
-- Add **GitHub badges**
-- Make it **ATS / resume-friendly**
-- Add **inference code**
-- Rewrite it for **research paper style**
-
-Just tell me 🙂
