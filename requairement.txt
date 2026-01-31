@@ -1,0 +1,4 @@
+tensorflow==2.16.2
+numpy<2.0
+scipy
+matplotlib
