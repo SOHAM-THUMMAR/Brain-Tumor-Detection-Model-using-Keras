@@ -13,6 +13,7 @@ Brain Tumor Detection Model using Keras is a Python project that implements a de
 - `main.py` for training and testing the model  
 - `splitter.py` for organizing data into train/test splits  
 
+- Trining accuracy is 93%
 ---
 
 ## Tech Stack
