@@ -1,8 +1,8 @@
-# 🧠 Brain Tumor Detection Model using Keras
+# 🧠 Brain Tumor Detection using CNN (TensorFlow / Keras)
 
-A deep learning project that detects the presence of a brain tumor from MRI images using a Convolutional Neural Network (CNN) built with TensorFlow and Keras.
+A deep learning project for detecting the presence of brain tumors from MRI images using a Convolutional Neural Network (CNN) built with TensorFlow and Keras.
 
-This project demonstrates end-to-end image classification — from dataset preparation and preprocessing to training, evaluation, and model saving.
+This project implements a complete deep learning pipeline including data preparation, model training, evaluation, and performance visualization.
 
 ---
 
@@ -10,10 +10,22 @@ This project demonstrates end-to-end image classification — from dataset prepa
 
 The goal of this project is to classify brain MRI images into two categories:
 
-- Tumor
-- No Tumor
+- **Tumor**
+- **No Tumor**
 
-This implementation focuses on clarity, simplicity, and clean structure while maintaining good model performance.
+The model is designed to achieve high recall for tumor detection while maintaining strong overall classification performance.
+
+---
+
+## 🏆 Key Results
+
+- **Test Accuracy:** 98%
+- **Tumor Recall:** 100%
+- **False Negatives:** 0
+- **AUC Score:** 1.000
+- **Total Test Samples:** 666
+
+The model successfully detected all tumor cases in the test dataset without missing any positive instances.
 
 ---
 
@@ -27,15 +39,32 @@ Brain-Tumor-Detection-Model-using-Keras/
 ├── val/                      # Validation images
 ├── test/                     # Testing images
 │
-├── splitter.py               # Script to split dataset into train/val/test
-├── brain tumor.ipynb                  # Model building, training & evaluation
+├── graphs/                   # Evaluation graphs
+│   ├── training_validation_recall.png
+│   ├── training_validation_loss.png
+│   ├── confusion_matrix.png
+│   └── roc_curve.png
 │
-├── bestModel.keras           # Saved best trained model
-├── bestModel.h5              # Saved model (alternate format)
+├── splitter.py               # Dataset splitting script
+├── brain_tumor.ipynb         # Model training & evaluation notebook
 │
-├── requirements.txt          # Project dependencies
-└── README.md                 # Project documentation
+├── bestModel.keras           # Saved trained model
+├── bestModel.h5              # Alternate saved format
+│
+├── requirements.txt
+└── README.md
 ```
+
+---
+
+## 📊 Dataset Information
+
+- Binary classification dataset (Tumor vs No Tumor)
+- Test set size: 666 images
+  - Tumor: 458
+  - No Tumor: 208
+
+> Note: Performance may vary depending on dataset size and quality.
 
 ---
 
@@ -46,14 +75,14 @@ Brain-Tumor-Detection-Model-using-Keras/
 - Keras
 - NumPy
 - Matplotlib
-- seaborn
+- Seaborn
 - Pillow (PIL)
 
 ---
 
 ## 🚀 Installation & Setup
 
-### 1️⃣ Clone the Repository
+### 1️⃣ Clone Repository
 
 ```bash
 git clone https://github.com/SOHAM-THUMMAR/Brain-Tumor-Detection-Model-using-Keras.git
@@ -66,17 +95,17 @@ cd Brain-Tumor-Detection-Model-using-Keras
 pip install -r requirements.txt
 ```
 
-If you don’t have a requirements file, install manually:
+If needed:
 
 ```bash
-pip install tensorflow numpy matplotlib pillow
+pip install tensorflow numpy matplotlib seaborn pillow
 ```
 
 ---
 
 ## 🧪 Dataset Preparation
 
-Organize your dataset into two folders:
+Organize your dataset as follows:
 
 ```
 data/
@@ -85,40 +114,47 @@ data/
 └── no_tumor/
 ```
 
-Each folder should contain MRI images corresponding to its class.
+Each folder should contain corresponding MRI images.
 
 ---
 
 ## 🔀 Splitting the Dataset
 
-To automatically split the dataset into training, validation, and testing sets:
+Run:
 
 ```bash
 python splitter.py
 ```
 
-This script creates:
+This will create:
 
 - train/
 - val/
 - test/
 
-folders with proper class distribution.
+with proper class distribution.
 
 ---
 
 ## 🧠 Model Architecture
 
-The model is a Convolutional Neural Network (CNN) designed for binary classification.
+The model is a custom Convolutional Neural Network (CNN) designed for binary classification.
 
-Typical architecture flow:
+### Architecture Overview
 
-- Convolution Layer
+- Convolutional Layers (16 → 32 → 64 → 128 filters)
 - ReLU Activation
-- MaxPooling
-- Dropout (to reduce overfitting)
-- Fully Connected (Dense) Layers
-- Sigmoid Output Layer (Binary Classification)
+- MaxPooling Layers
+- Dropout for regularization
+- Flatten Layer
+- Dense Layer (64 units)
+- Sigmoid Output Layer
+
+### Model Statistics
+
+- **Total Parameters:** 5,635,361  
+- **Trainable Parameters:** 5,635,361  
+- **Non-Trainable Parameters:** 0  
 
 Loss Function:
 - Binary Crossentropy
@@ -126,30 +162,37 @@ Loss Function:
 Optimizer:
 - Adam
 
-Evaluation Metric:
+Evaluation Metrics:
 - Accuracy
+- Precision
+- Recall
+- F1-Score
+- ROC-AUC
 
 ---
 
 ## 📈 Training the Model
 
-Run the training notebook:
+Launch Jupyter Notebook:
 
 ```bash
-brain tumor.ipynb
+jupyter notebook
 ```
 
-During training:
+Open:
 
-- Images are loaded and normalized
-- CNN model is built
-- Model trains on training data
-- Validation performance is monitored
-- Best model is saved automatically
+```
+brain_tumor.ipynb
+```
 
-Saved Model Files:
-- bestModel.keras
-- bestModel.h5
+The notebook includes:
+
+- Data loading & preprocessing
+- Model building
+- Training loop
+- Evaluation metrics
+- Visualization of performance curves
+- Model saving
 
 ---
 
@@ -158,7 +201,7 @@ Saved Model Files:
 ### Training vs Validation Recall
 
 <p align="center">
-  <img src="./graphs/Training vs Validation Recall.png" width="600">
+  <img src="graphs/training_validation_recall.png" width="600">
 </p>
 
 The model shows steady improvement in recall across epochs.  
@@ -169,18 +212,17 @@ Validation recall closely follows training recall, indicating good generalizatio
 ### Training vs Validation Loss
 
 <p align="center">
-  <img src="./graphs/Training vs Validation Loss.png" width="600">
+  <img src="graphs/training_validation_loss.png" width="600">
 </p>
 
-Both training and validation loss decrease consistently over epochs.  
-No significant divergence is observed, demonstrating stable learning behavior.
+Both training and validation loss decrease consistently over epochs, demonstrating stable learning behavior.
 
 ---
 
 ### Confusion Matrix
 
 <p align="center">
-  <img src="./graphs/Confusion Matrix.png" width="500">
+  <img src="graphs/confusion_matrix.png" width="500">
 </p>
 
 Confusion Matrix:
@@ -194,25 +236,27 @@ Confusion Matrix:
 - False Negatives: 0  
 - Tumor Recall: 100%  
 
-The model achieved **zero false negatives**, meaning no tumor cases were missed.
+The model achieved zero false negatives, meaning no tumor cases were missed.
 
 ---
 
 ### ROC Curve
 
 <p align="center">
-  <img src="./graphs/ROC Curve.png" width="600">
+  <img src="graphs/roc_curve.png" width="600">
 </p>
 
 - **AUC Score: 1.000**
 
-The ROC curve demonstrates near-perfect class separability on the test dataset.
+The ROC curve indicates near-perfect class separability on the test dataset.
+
+> Note: A perfect AUC score suggests strong performance on this dataset. Further validation on external or larger datasets is recommended to confirm generalization capability.
 
 ---
 
 ## 🔍 Using the Saved Model (Inference)
 
-Example of loading the trained model:
+Example:
 
 ```python
 from tensorflow.keras.models import load_model
@@ -221,52 +265,64 @@ import numpy as np
 model = load_model("bestModel.keras")
 
 prediction = model.predict(image_array)
+
+if prediction > 0.5:
+    print("Tumor Detected")
+else:
+    print("No Tumor Detected")
 ```
 
-If prediction > 0.5 → Tumor  
-Else → No Tumor  
+---
+
+## 🔁 Reproducibility Steps
+
+1. Clone repository  
+2. Install dependencies  
+3. Prepare dataset  
+4. Run splitter.py  
+5. Launch brain_tumor.ipynb  
+6. Train model  
 
 ---
 
 ## ✨ Features
 
-- Clean project structure
-- Dataset splitting automation
+- Clean modular project structure
+- Automated dataset splitting
 - Model checkpoint saving
-- Easy to extend
-- Beginner-friendly implementation
+- Multiple evaluation metrics
+- Performance visualization
+- Beginner-friendly yet technically structured implementation
 
 ---
 
 ## 🧩 Possible Improvements
 
-This project can be enhanced by:
-
-- Adding data augmentation
-- Using Transfer Learning (MobileNet, ResNet, EfficientNet)
-- Adding confusion matrix visualization
-- Adding precision, recall, and F1-score
-- Creating a web app interface (Streamlit / Flask)
-- Extending to multi-class tumor classification
+- Add Data Augmentation
+- Implement Transfer Learning (ResNet, EfficientNet, MobileNet)
+- Replace Flatten with GlobalAveragePooling2D to reduce parameters
+- Add Grad-CAM visualization for interpretability
+- Deploy using Streamlit or Flask
+- Extend to multi-class tumor classification
 
 ---
 
 ## 📌 Limitations
 
 - Binary classification only
-- Performance depends on dataset size
-- Not suitable for real clinical deployment without validation
+- Performance dependent on dataset size and quality
+- Not suitable for real clinical deployment without medical validation
 
 ---
 
 ## 📄 License
 
-This project is open-source and available for learning and research purposes.
+This project is open-source and intended for research and educational purposes.
 
 ---
 
 ## 🙌 Author
 
-Soham Thummar
+**Soham Thummar**
 
 If you found this project helpful, consider giving it a ⭐ on GitHub.
