@@ -1,113 +1,271 @@
-# Brain Tumor Detection Model using Keras
+# 🧠 Brain Tumor Detection Model using Keras
 
-Brain Tumor Detection Model using Keras is a Python project that implements a deep learning model to classify brain MRI images into tumor and non-tumor categories. The model is developed using Keras (a TensorFlow high-level API) and trained on a dataset of brain MRI images. The repository contains code for training and testing the model, preparing the dataset, and saving the best performing model for later use.
+A deep learning project that detects the presence of a brain tumor from MRI images using a Convolutional Neural Network (CNN) built with TensorFlow and Keras.
 
----
-
-## Features
-
-- Train a deep learning model to detect brain tumors from MRI scans  
-- Uses Keras and TensorFlow for neural network implementation  
-- Includes data preparation and splitting scripts  
-- Saves the best performing models (`bestModel.h5`, `bestModel.keras`)  
-- `main.py` for training and testing the model  
-- `splitter.py` for organizing data into train/test splits  
-
-- Trining accuracy is 93%
----
-
-## Tech Stack
-
-- Python  
-- Keras (TensorFlow backend)  
-- NumPy and other scientific libraries  
-- Deep learning with Convolutional Neural Networks  
-- Model saving and evaluation using best weights  
+This project demonstrates end-to-end image classification — from dataset preparation and preprocessing to training, evaluation, and model saving.
 
 ---
 
-## Project Structure
+## 📌 Project Objective
+
+The goal of this project is to classify brain MRI images into two categories:
+
+- Tumor
+- No Tumor
+
+This implementation focuses on clarity, simplicity, and clean structure while maintaining good model performance.
+
+---
+
+## 📂 Repository Structure
 
 ```
-/
-├── data/                    # Dataset folder for MRI images
-├── bestModel.h5            # Saved Keras model
-├── bestModel.keras         # Another saved model format
-├── main.py                 # Model training and evaluation script
-├── splitter.py             # Script to split dataset into train/test
-└── other necessary files   # Any additional helper modules
+Brain-Tumor-Detection-Model-using-Keras/
+│
+├── data/                     # Original dataset (tumor / no_tumor)
+├── train/                    # Training images
+├── val/                      # Validation images
+├── test/                     # Testing images
+│
+├── splitter.py               # Script to split dataset into train/val/test
+├── main.py                   # Model building, training & evaluation
+│
+├── bestModel.keras           # Saved best trained model
+├── bestModel.h5              # Saved model (alternate format)
+│
+├── requirements.txt          # Project dependencies
+└── README.md                 # Project documentation
 ```
 
 ---
 
-## Getting Started
+## ⚙️ Technologies Used
 
-### Prerequisites
+- Python 3.x
+- TensorFlow
+- Keras
+- NumPy
+- Matplotlib
+- Pillow (PIL)
 
-Make sure you have the following installed:
+---
 
-- Python 3.x  
-- TensorFlow and Keras  
-- NumPy, Pandas  
-- Matplotlib (optional for visualization)  
+## 🚀 Installation & Setup
 
-Install dependencies:
+### 1️⃣ Clone the Repository
+
 ```bash
-pip install tensorflow keras numpy pandas
+git clone https://github.com/SOHAM-THUMMAR/Brain-Tumor-Detection-Model-using-Keras.git
+cd Brain-Tumor-Detection-Model-using-Keras
 ```
 
-### Prepare Dataset
+### 2️⃣ Install Dependencies
 
-1. Place MRI images into the `data/` folder.  
-2. Use `splitter.py` to divide the dataset into training and testing sets:
+```bash
+pip install -r requirements.txt
+```
+
+If you don’t have a requirements file, install manually:
+
+```bash
+pip install tensorflow numpy matplotlib pillow
+```
+
+---
+
+## 🧪 Dataset Preparation
+
+Organize your dataset into two folders:
+
+```
+data/
+│
+├── tumor/
+└── no_tumor/
+```
+
+Each folder should contain MRI images corresponding to its class.
+
+---
+
+## 🔀 Splitting the Dataset
+
+To automatically split the dataset into training, validation, and testing sets:
+
 ```bash
 python splitter.py
 ```
 
-### Train and Evaluate Model
+This script creates:
 
-Run the main training and testing script:
+- train/
+- val/
+- test/
+
+folders with proper class distribution.
+
+---
+
+## 🧠 Model Architecture
+
+The model is a Convolutional Neural Network (CNN) designed for binary classification.
+
+Typical architecture flow:
+
+- Convolution Layer
+- ReLU Activation
+- MaxPooling
+- Dropout (to reduce overfitting)
+- Fully Connected (Dense) Layers
+- Sigmoid Output Layer (Binary Classification)
+
+Loss Function:
+- Binary Crossentropy
+
+Optimizer:
+- Adam
+
+Evaluation Metric:
+- Accuracy
+
+---
+
+## 📈 Training the Model
+
+Run the training script:
+
 ```bash
 python main.py
 ```
 
-During training, the model learns to classify MRI images as tumor or non-tumor. After training, the best performing model is saved as `bestModel.h5` (and optionally in the `.keras` format).
+During training:
+
+- Images are loaded and normalized
+- CNN model is built
+- Model trains on training data
+- Validation performance is monitored
+- Best model is saved automatically
+
+Saved Model Files:
+- bestModel.keras
+- bestModel.h5
 
 ---
 
-## How It Works
+## 📊 Model Evaluation
 
-1. The data is loaded from the `data/` folder and split into train and test sets.  
-2. Images are processed and resized for input to the model.  
-3. A Convolutional Neural Network (CNN) model is defined using Keras layers.  
-4. The model is trained using labeled brain MRI images.  
-5. After training, the best model weights are saved for future prediction.  
+### Training vs Validation Recall
 
-Related deep learning concepts include using convolutional layers to extract features from MRI images and using fully connected layers for classification. CNNs are widely used for image classification tasks, including medical image analysis. :contentReference[oaicite:0]{index=0}
+<p align="center">
+  <img src="images/recall_curve.png" width="600">
+</p>
 
----
-
-## Future Enhancements
-
-- Add support for multi-class classification (glioma, meningioma, pituitary, etc.)  
-- Include data augmentation for better generalization  
-- Build a web interface to upload MRI images and show predictions  
-- Use pre-trained architectures with transfer learning for higher accuracy  
-- Visualize training metrics and confusion matrix  
+The model shows steady improvement in recall across epochs.  
+Validation recall closely follows training recall, indicating good generalization and minimal overfitting.
 
 ---
 
-## Contributing
+### Training vs Validation Loss
 
-To contribute:
+<p align="center">
+  <img src="images/loss_curve.png" width="600">
+</p>
 
-1. Fork the repository  
-2. Create a new branch:
-```bash
-git checkout -b feature-name
+Both training and validation loss decrease consistently over epochs.  
+No significant divergence is observed, demonstrating stable learning behavior.
+
+---
+
+### Confusion Matrix
+
+<p align="center">
+  <img src="images/confusion_matrix.png" width="500">
+</p>
+
+Confusion Matrix:
+
 ```
-3. Make changes and commit:
-```bash
-git commit -m "Add new feature"
+[[195  13]
+ [  0 458]]
 ```
-4. Push and open a pull request
+
+- False Positives: 13  
+- False Negatives: 0  
+- Tumor Recall: 100%  
+
+The model achieved **zero false negatives**, meaning no tumor cases were missed.
+
+---
+
+### ROC Curve
+
+<p align="center">
+  <img src="images/roc_curve.png" width="600">
+</p>
+
+- **AUC Score: 1.000**
+
+The ROC curve demonstrates near-perfect class separability on the test dataset.
+
+---
+
+## 🔍 Using the Saved Model (Inference)
+
+Example of loading the trained model:
+
+```python
+from tensorflow.keras.models import load_model
+import numpy as np
+
+model = load_model("bestModel.keras")
+
+prediction = model.predict(image_array)
+```
+
+If prediction > 0.5 → Tumor  
+Else → No Tumor  
+
+---
+
+## ✨ Features
+
+- Clean project structure
+- Dataset splitting automation
+- Model checkpoint saving
+- Easy to extend
+- Beginner-friendly implementation
+
+---
+
+## 🧩 Possible Improvements
+
+This project can be enhanced by:
+
+- Adding data augmentation
+- Using Transfer Learning (MobileNet, ResNet, EfficientNet)
+- Adding confusion matrix visualization
+- Adding precision, recall, and F1-score
+- Creating a web app interface (Streamlit / Flask)
+- Extending to multi-class tumor classification
+
+---
+
+## 📌 Limitations
+
+- Binary classification only
+- Performance depends on dataset size
+- Not suitable for real clinical deployment without validation
+
+---
+
+## 📄 License
+
+This project is open-source and available for learning and research purposes.
+
+---
+
+## 🙌 Author
+
+Soham Thummar
+
+If you found this project helpful, consider giving it a ⭐ on GitHub.
