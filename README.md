@@ -28,7 +28,7 @@ Brain-Tumor-Detection-Model-using-Keras/
 ├── test/                     # Testing images
 │
 ├── splitter.py               # Script to split dataset into train/val/test
-├── main.py                   # Model building, training & evaluation
+├── brain tumor.ipynb                  # Model building, training & evaluation
 │
 ├── bestModel.keras           # Saved best trained model
 ├── bestModel.h5              # Saved model (alternate format)
@@ -46,6 +46,7 @@ Brain-Tumor-Detection-Model-using-Keras/
 - Keras
 - NumPy
 - Matplotlib
+- seaborn
 - Pillow (PIL)
 
 ---
@@ -132,10 +133,10 @@ Evaluation Metric:
 
 ## 📈 Training the Model
 
-Run the training script:
+Run the training notebook:
 
 ```bash
-python main.py
+brain tumor.ipynb
 ```
 
 During training:
