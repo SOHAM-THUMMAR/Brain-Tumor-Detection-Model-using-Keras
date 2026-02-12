@@ -157,7 +157,7 @@ Saved Model Files:
 ### Training vs Validation Recall
 
 <p align="center">
-  <img src="images/recall_curve.png" width="600">
+  <img src="./graphs/Training vs Validation Recall.png" width="600">
 </p>
 
 The model shows steady improvement in recall across epochs.  
@@ -168,7 +168,7 @@ Validation recall closely follows training recall, indicating good generalizatio
 ### Training vs Validation Loss
 
 <p align="center">
-  <img src="images/loss_curve.png" width="600">
+  <img src="./graphs/Training vs Validation Loss.png" width="600">
 </p>
 
 Both training and validation loss decrease consistently over epochs.  
@@ -179,7 +179,7 @@ No significant divergence is observed, demonstrating stable learning behavior.
 ### Confusion Matrix
 
 <p align="center">
-  <img src="images/confusion_matrix.png" width="500">
+  <img src="./graphs/Confusion Matrix.png" width="500">
 </p>
 
 Confusion Matrix:
@@ -200,7 +200,7 @@ The model achieved **zero false negatives**, meaning no tumor cases were missed.
 ### ROC Curve
 
 <p align="center">
-  <img src="images/roc_curve.png" width="600">
+  <img src="./graphs/ROC Curve.png" width="600">
 </p>
 
 - **AUC Score: 1.000**
