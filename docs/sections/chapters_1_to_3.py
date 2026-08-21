@@ -5,7 +5,9 @@ from docs.styles import (
 
 
 def build_chapters_1_to_3(doc, ch_sec):
-    # CHAPTER 1.0 INTRODUCTION
+    # =============================================================
+    # 1.0 INTRODUCTION
+    # =============================================================
     set_section_header_footer(ch_sec, header_title="1.0 Introduction")
     add_styled_heading(doc, "1.0 INTRODUCTION", level=1)
 
@@ -19,43 +21,47 @@ def build_chapters_1_to_3(doc, ch_sec):
         "To mitigate these challenges, this project delivers an end-to-end computer-aided brain tumor detection and interpretability framework. Built upon a 4-stage custom Convolutional Neural Network (CNN) trained with TensorFlow/Keras and wrapped inside a responsive Python Flask web application, the system automates axial MRI scan preprocessing, binary tumor classification, and spatial tumor localization via Gradient-weighted Class Activation Mapping (Grad-CAM)."
     )
 
-    add_styled_heading(doc, "1.2 Purpose and Objectives", level=2)
+    add_styled_heading(doc, "1.2 Purpose: Goals & Objectives", level=2)
     add_body_p(
         doc,
-        "The primary purpose of this project is to bridge deep learning research with clinical utility by creating an accessible, accurate, and explainable web diagnostic interface. The core objectives include:"
+        "The primary purpose of this project is to bridge deep learning research with clinical utility by creating an accessible, accurate, and explainable web diagnostic interface. The core goals and objectives include:"
     )
     add_body_p(doc, "• Develop a lightweight CNN architecture trained on preprocessed 224x224 RGB MRI scans.")
     add_body_p(doc, "• Prioritize high tumor recall (sensitivity) through class weighting to eliminate false negative predictions.")
     add_body_p(doc, "• Implement Grad-CAM heatmap overlay to explain deep feature representations visually.")
     add_body_p(doc, "• Build a production-ready Python Flask application adhering to strict input validation and web standards.")
 
-    add_styled_heading(doc, "1.3 Project Scope and Limitations", level=2)
+    add_styled_heading(doc, "1.3 Scope", level=2)
     add_body_p(
         doc,
         "The project scope encompasses dataset preprocessing, binary classification model training, evaluation graph generation, interpretability heatmaps, and Flask server deployment. The scope is strictly bounded as follows:"
     )
-    add_body_p(doc, "• Binary Classification Scope: The model discriminates between 'Tumor' and 'No Tumor' categories.")
-    add_body_p(doc, "• Non-Clinical Scope: Designed for educational, academic, and decision-support research, not autonomous surgical decisions.")
+    add_body_p(doc, "• What the system CAN do: Classify axial brain MRI images into 'Tumor' vs 'No Tumor', provide classification confidence percentages, generate Grad-CAM visual heatmaps, and display benchmark dataset statistics.")
+    add_body_p(doc, "• What the system CANNOT do: Provide multi-class subtyping (e.g. distinguishing glioma vs meningioma), process 3D DICOM volumes directly without 2D slice extraction, or replace professional radiological diagnosis without clinical trial validation.")
 
-    add_styled_heading(doc, "1.4 Literature Review", level=2)
+    add_styled_heading(doc, "1.4 Technology and Literature Review", level=2)
     add_body_p(
         doc,
-        "Recent advancements in deep convolutional networks have revolutionized computer-vision-based medical imaging. Traditional machine learning techniques relied heavily on hand-crafted features such as Haar wavelets, texture descriptors (GLCM), and support vector machines (SVM). In contrast, end-to-end CNNs automatically extract hierarchical spatial representations ranging from low-level edge features to complex anatomical boundaries."
+        "Recent advancements in deep convolutional networks have revolutionized computer-vision-based medical imaging. Traditional machine learning techniques relied heavily on hand-crafted features such as Haar wavelets, texture descriptors (GLCM), and support vector machines (SVM). In contrast, end-to-end CNNs automatically extract hierarchical spatial representations ranging from low-level edge features to complex anatomical boundaries. Recent research by Selvaraju et al. (2017) demonstrated that Gradient-weighted Class Activation Mapping (Grad-CAM) provides fine-grained visual explainability for CNN decisions, making deep learning models trustworthy for clinical decision support."
     )
 
     doc.add_page_break()
 
-    # CHAPTER 2.0 PROJECT MANAGEMENT
+    # =============================================================
+    # 2.0 PROJECT MANAGEMENT
+    # =============================================================
     set_section_header_footer(ch_sec, header_title="2.0 Project Management")
     add_styled_heading(doc, "2.0 PROJECT MANAGEMENT", level=1)
 
-    add_styled_heading(doc, "2.1 Development Approach", level=2)
+    add_styled_heading(doc, "2.1 Project Planning and Scheduling", level=2)
+
+    add_styled_heading(doc, "2.1.1 Project Development Approach and Justification", level=3)
     add_body_p(
         doc,
         "An Agile iterative development methodology was adopted for this project. Iterative sprints enabled continuous feedback loops across data curation, model selection, loss metric tuning, explainability implementation, and web front-end development."
     )
 
-    add_styled_heading(doc, "2.2 Project Schedule and Milestones", level=2)
+    add_styled_heading(doc, "2.1.2 Project Plan including Milestones, Deliverables, Roles and Dependencies", level=3)
     add_body_p(doc, "The project execution was structured into five distinct phases over a 16-week timeline as summarized in Table 2.1 below:")
 
     t_milestones = doc.add_table(rows=1, cols=4)
@@ -64,7 +70,7 @@ def build_chapters_1_to_3(doc, ch_sec):
     m_hdr[0].text = "Phase"
     m_hdr[1].text = "Milestone Task"
     m_hdr[2].text = "Timeline"
-    m_hdr[3].text = "Deliverables"
+    m_hdr[3].text = "Deliverables & Dependencies"
     set_cell_background(m_hdr[0], "003366")
     set_cell_background(m_hdr[1], "003366")
     set_cell_background(m_hdr[2], "003366")
@@ -78,7 +84,7 @@ def build_chapters_1_to_3(doc, ch_sec):
         ("Phase 1", "Dataset Acquisition & Preprocessing", "Weeks 1–3", "Split dataset (Train/Val/Test), normalized arrays"),
         ("Phase 2", "CNN Model Architecture & Training", "Weeks 4–7", "bestModel.keras, history metrics, loss curves"),
         ("Phase 3", "Model Evaluation & Recall Tuning", "Weeks 8–10", "Confusion matrix, ROC-AUC, 100% recall threshold"),
-        ("Phase 4", "Flask Web Application & Grad-CAM", "Weeks 11–14", "app.py, model_utils.py, HTML/CSS UI"),
+        ("Phase 4", "Flask Web Application & Grad-CAM", "Weeks 11–14", "app.py, model_utils.py, HTML/CSS UI, start.py"),
         ("Phase 5", "Testing & Documentation", "Weeks 15–16", "Project report, unit tests, GitHub repo"),
     ]
     for p_id, m_task, t_line, deliv in milestones_data:
@@ -95,10 +101,30 @@ def build_chapters_1_to_3(doc, ch_sec):
 
     add_body_p(doc, "Table 2.1: Project Development Milestones and Execution Schedule")
 
-    add_styled_heading(doc, "2.3 Risk Identification and Mitigation Plan", level=2)
+    add_styled_heading(doc, "2.1.3 Schedule Representation", level=3)
     add_body_p(
         doc,
-        "Risk management specifically addressed dataset imbalance, model overfitting, missed tumor predictions (false negatives), and web upload vulnerabilities:"
+        "The project schedule was managed using a Gantt timeline representation spanning 16 weeks. Data preparation occupied Weeks 1-3, Model Architecture & Training spanned Weeks 4-7, Recall Tuning & Metric Validation spanned Weeks 8-10, Flask & Grad-CAM Web App Integration spanned Weeks 11-14, and Verification, Report Generation, and Deployment Documentation completed in Weeks 15-16."
+    )
+
+    add_styled_heading(doc, "2.2 Risk Management", level=2)
+
+    add_styled_heading(doc, "2.2.1 Risk Identification", level=3)
+    add_body_p(
+        doc,
+        "Risk identification focused on discovering potential technical, medical, and operational risks specific to this deep learning medical diagnostic application. Four primary risks were identified: (1) False negative diagnosis (missed tumor cases), (2) Overfitting to training MRI scans, (3) Corrupted or malicious web file uploads, and (4) Grad-CAM feature map layer extraction failures."
+    )
+
+    add_styled_heading(doc, "2.2.2 Risk Analysis", level=3)
+    add_body_p(
+        doc,
+        "Risk analysis evaluated the probability and severity of each identified risk. False negative classification carried CRITICAL severity because missing a malignant brain tumor in screening has severe life-threatening consequences. Overfitting carried HIGH impact as it impairs generalization on unseen patient scans. Malicious file uploads carried MEDIUM impact on server stability, while Grad-CAM layer mismatch carried LOW impact on prediction output."
+    )
+
+    add_styled_heading(doc, "2.2.3 Risk Planning", level=3)
+    add_body_p(
+        doc,
+        "Risk planning formulated concrete strategies implemented directly in the code to manage each risk, as detailed in Table 2.2:"
     )
 
     t_risk = doc.add_table(rows=1, cols=3)
@@ -134,14 +160,16 @@ def build_chapters_1_to_3(doc, ch_sec):
 
     doc.add_page_break()
 
-    # CHAPTER 3.0 SYSTEM REQUIREMENTS STUDY
+    # =============================================================
+    # 3.0 SYSTEM REQUIREMENTS STUDY
+    # =============================================================
     set_section_header_footer(ch_sec, header_title="3.0 System Requirements Study")
     add_styled_heading(doc, "3.0 SYSTEM REQUIREMENTS STUDY", level=1)
 
     add_styled_heading(doc, "3.1 User Characteristics", level=2)
     add_body_p(
         doc,
-        "The system is designed for medical researchers, computer science students, and biomedical developers. Users are expected to have basic familiarity with web interfaces and digital brain MRI scan file formats (PNG, JPG)."
+        "The system is designed for medical researchers, computer science students, and biomedical developers. Users are expected to have basic familiarity with web interfaces and digital brain MRI scan file formats (PNG, JPG, JPEG)."
     )
 
     add_styled_heading(doc, "3.2 Hardware and Software Requirements", level=2)
@@ -180,5 +208,15 @@ def build_chapters_1_to_3(doc, ch_sec):
                     format_run(r, size_pt=10, bold=(i == 0))
 
     add_body_p(doc, "Table 3.1: Hardware and Software System Specifications")
+
+    add_styled_heading(doc, "3.3 Constraints", level=2)
+    add_body_p(
+        doc,
+        "System implementation and operation are subject to several technical and regulatory constraints:\n"
+        "• Regulatory & Clinical Constraints: The system is developed exclusively for educational and decision-support research. It is not approved by regulatory medical bodies (e.g. FDA/CE) for autonomous diagnostic use.\n"
+        "• Hardware Limitations: Inference runs efficiently on standard CPUs without requiring high-end dedicated GPUs.\n"
+        "• File Size & Format Constraints: Uploads are constrained to PNG, JPG, and JPEG formats under 10MB per request.\n"
+        "• Security & Reliability Constraints: Strict input validation prevents arbitrary file execution, and exception boundaries ensure the web server returns clean HTTP 400/500 responses without exposing internal stack traces."
+    )
 
     doc.add_page_break()
