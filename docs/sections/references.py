@@ -12,6 +12,7 @@ def build_references_and_appendices(doc, ch_sec):
         "[3] Chollet, F. (2015). Keras: Deep Learning for Humans. GitHub Repository: https://github.com/fchollet/keras",
         "[4] Grinberg, M. (2018). Flask Web Development: Developing Web Applications with Python. O'Reilly Media.",
         "[5] Litjens, G., Kooi, T., Bejnordi, B. E., Setio, A. A. A., Ciompi, F., Ghafoorian, M., ... & Sánchez, C. I. (2017). A survey on deep learning in medical image analysis. Medical Image Analysis, 42, 60-88.",
+        "[6] ReportLab Software. (2024). ReportLab PDF Generation User Guide. ReportLab Inc., https://www.reportlab.com/",
     ]
     for ref in refs:
         add_body_p(doc, ref)
@@ -24,7 +25,7 @@ def build_references_and_appendices(doc, ch_sec):
 
     tree_str = (
         "Brain-Tumor-Detection-Model-using-Keras/\n"
-        "├── start.py                   # One-click application launcher\n"
+        "├── start.py                   # One-click application launcher (auto-venv & pip)\n"
         "├── app/\n"
         "│   ├── __init__.py            # Flask app factory (create_app)\n"
         "│   ├── app.py                 # Application entrypoint\n"
@@ -32,17 +33,23 @@ def build_references_and_appendices(doc, ch_sec):
         "│   ├── model_utils.py         # Backward-compatible facade\n"
         "│   ├── routes/\n"
         "│   │   ├── main_routes.py\n"
-        "│   │   ├── predict_routes.py\n"
+        "│   │   ├── predict_routes.py  # Prediction & PDF download endpoints\n"
         "│   │   ├── stats_routes.py\n"
         "│   │   └── health_routes.py\n"
         "│   ├── services/\n"
         "│   │   ├── image_service.py\n"
         "│   │   ├── model_service.py\n"
-        "│   │   ├── gradcam_service.py\n"
+        "│   │   ├── gradcam_service.py # Grad-CAM & bounding box contour highlight\n"
+        "│   │   ├── pdf_service.py     # ReportLab PDF patient report generator\n"
         "│   │   ├── validation_service.py\n"
         "│   │   └── stats_service.py\n"
         "│   ├── templates/\n"
         "│   └── static/\n"
+        "│       ├── css/\n"
+        "│       ├── js/\n"
+        "│       ├── uploads/\n"
+        "│       ├── heatmaps/\n"
+        "│       └── reports/           # Generated PDF patient reports\n"
         "├── docs/\n"
         "│   ├── config.py\n"
         "│   ├── styles.py\n"

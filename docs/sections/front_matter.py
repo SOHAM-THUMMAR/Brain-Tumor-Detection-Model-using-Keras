@@ -75,7 +75,7 @@ def build_declaration(doc):
     )
     add_body_p(
         doc,
-        "I further declare that all source codes, deep learning architectures, web application modules, and experimental results presented in this report are authentic and developed specifically for this project."
+        "I further declare that all source codes, deep learning architectures, web application modules, automated PDF patient report microservices, and experimental results presented in this report are authentic and developed specifically for this project."
     )
 
     p_sig = doc.add_paragraph()
@@ -105,7 +105,7 @@ def build_acknowledgement(doc):
     add_styled_heading(doc, "ACKNOWLEDGEMENT", level=1)
     add_body_p(
         doc,
-        f"I express my deepest sense of gratitude and sincere thanks to my project guide, {GUIDE_NAME}, for invaluable guidance, encouragement, and insightful suggestions throughout the development of this project. His/Her technical expertise and continuous mentorship were instrumental in shaping the methodology and successful execution of the model and web application."
+        f"I express my deepest sense of gratitude and sincere thanks to my project guide, {GUIDE_NAME}, for invaluable guidance, encouragement, and insightful suggestions throughout the development of this project. His/Her technical expertise and continuous mentorship were instrumental in shaping the methodology and successful execution of the model, explainability heatmaps, and web application."
     )
     add_body_p(
         doc,
@@ -131,7 +131,7 @@ def build_abstract(doc):
     )
     add_body_p(
         doc,
-        "To make the model interpretable and accessible for clinical research, Gradient-weighted Class Activation Mapping (Grad-CAM) was integrated to dynamically highlight spatial heatmaps of tumor regions. The complete pipeline was deployed into a responsive Flask web application supporting drag-and-drop file uploads, real-time inference, and performance metric visualization."
+        "To make the model interpretable and clinically actionable, Gradient-weighted Class Activation Mapping (Grad-CAM) and explicit contour/bounding box spatial localization were integrated to highlight tumor regions. Furthermore, an automated PDF patient diagnostic report microservice (ReportLab) was implemented, enabling one-click download of clinical reports featuring embedded MRI scans, diagnostic badges, confidence percentages, and benchmark model metrics."
     )
 
     doc.add_page_break()
