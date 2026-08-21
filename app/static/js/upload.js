@@ -16,13 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
       alert(`Invalid file format (.${ext}). Please select a PNG, JPG, or JPEG image.`);
       fileInput.value = '';
       if (filePreview) filePreview.textContent = '';
-      if (submitBtn) submitBtn.disabled = true;
       return false;
     }
     if (filePreview) {
       filePreview.textContent = `Selected file: ${file.name} (${(file.size / (1024 * 1024)).toFixed(2)} MB)`;
     }
-    if (submitBtn) submitBtn.disabled = false;
     return true;
   };
 
@@ -47,24 +45,38 @@ document.addEventListener('DOMContentLoaded', () => {
   dropzone.addEventListener('drop', (e) => {
     const dt = e.dataTransfer;
     const files = dt.files;
-    if (files.length > 0) {
+    if (files && files.length > 0) {
       fileInput.files = files;
       validateFile(files[0]);
     }
   });
 
-  fileInput.addEventListener('change', (e) => {
-    if (fileInput.files.length > 0) {
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files && fileInput.files.length > 0) {
       validateFile(fileInput.files[0]);
     }
   });
 
   if (uploadForm) {
-    uploadForm.addEventListener('submit', () => {
+    uploadForm.addEventListener('submit', (e) => {
+      if (!fileInput.files || fileInput.files.length === 0 || !fileInput.files[0].name) {
+        e.preventDefault();
+        alert('Please select or drag-and-drop a brain MRI scan image file before clicking Analyze.');
+        fileInput.click();
+        return false;
+      }
+
+      const file = fileInput.files[0];
+      const ext = file.name.split('.').pop().toLowerCase();
+      if (!allowedExtensions.includes(ext)) {
+        e.preventDefault();
+        alert(`Invalid file format (.${ext}). Please select a PNG, JPG, or JPEG image.`);
+        return false;
+      }
+
       if (submitBtn) {
-        submitBtn.innerHTML = 'Analyzing MRI Scan... <span class="spinner"></span>';
+        submitBtn.innerHTML = 'Analyzing MRI Scan... Please wait ⏳';
         submitBtn.style.opacity = '0.8';
-        submitBtn.disabled = true;
       }
     });
   }
