@@ -9,11 +9,31 @@ from docs.styles import (
 
 
 def build_chapters_7_to_10(doc, ch_sec):
-    # CHAPTER 7.0 TESTING AND EVALUATION
+    # =============================================================
+    # 7.0 TESTING AND EVALUATION
+    # =============================================================
     set_section_header_footer(ch_sec, header_title="7.0 Testing and Evaluation")
     add_styled_heading(doc, "7.0 TESTING AND EVALUATION", level=1)
 
-    add_styled_heading(doc, "7.1 System Test Cases Matrix", level=2)
+    add_styled_heading(doc, "7.1 Testing Plan", level=2)
+    add_body_p(
+        doc,
+        "The testing plan covers unit testing of image preprocessing functions, model singleton instantiation checks, Grad-CAM layer gradient verification, and end-to-end black-box testing of Flask routes (/predict, /stats, /health)."
+    )
+
+    add_styled_heading(doc, "7.2 Testing Strategy", level=2)
+    add_body_p(
+        doc,
+        "An Agile automated testing strategy was implemented using Python test scripts. Tests evaluate valid MRI scans, invalid non-image uploads, oversized files (>10MB), and boundary classification probabilities near the 0.3 threshold."
+    )
+
+    add_styled_heading(doc, "7.3 Testing Methods", level=2)
+    add_body_p(
+        doc,
+        "Testing methods combine Black-Box web testing (simulating user browser uploads via Flask test client) and White-Box component testing (asserting input tensor shapes and Grad-CAM array outputs)."
+    )
+
+    add_styled_heading(doc, "7.4 Test Cases Matrix", level=2)
     add_body_p(doc, "Table 7.1 outlines five black-box test scenarios executed on the web application:")
 
     t_tc = doc.add_table(rows=1, cols=4)
@@ -30,8 +50,8 @@ def build_chapters_7_to_10(doc, ch_sec):
                 format_run(r, size_pt=10, bold=True, color_rgb=(255, 255, 255))
 
     test_cases_data = [
-        ("Valid Tumor MRI Scan", "tumor_scan_01.jpg (224x224)", "Render 'Tumor' badge, confidence %, and Grad-CAM heatmap", "PASSED - Tumor detected, 99.4% conf, heatmap generated"),
-        ("Valid Healthy MRI Scan", "notumor_scan_02.png", "Render 'No Tumor' green badge & confidence %", "PASSED - No Tumor detected, 98.1% conf"),
+        ("Valid Tumor MRI Scan", "tumor_scan_01.jpg (224x224)", "Render 'Tumor' badge, confidence %, and Grad-CAM heatmap", "PASSED - Tumor detected, 100.0% conf, heatmap generated"),
+        ("Valid Healthy MRI Scan", "notumor_scan_02.png", "Render 'No Tumor' green badge & confidence %", "PASSED - No Tumor detected, confidence % rendered"),
         ("Oversized Image File", "large_mri.png (15 MB)", "Block upload, render error.html HTTP 400 'File Too Large'", "PASSED - Rendered error.html 400"),
         ("Invalid File Extension", "document.pdf", "Block upload, render error.html HTTP 400 'Invalid File Type'", "PASSED - Rendered error.html 400"),
         ("Corrupted Image File", "corrupted.jpg (0 bytes)", "Catch exception server-side, log traceback, render error.html 500", "PASSED - Rendered error.html 500 cleanly"),
@@ -50,7 +70,7 @@ def build_chapters_7_to_10(doc, ch_sec):
 
     add_body_p(doc, "Table 7.1: Black-Box Web Application and Inference Test Cases Matrix")
 
-    add_styled_heading(doc, "7.2 Experimental Performance Graphs", level=2)
+    add_styled_heading(doc, "7.5 Experimental Performance Graphs", level=2)
     add_body_p(doc, "The model's experimental evaluation graphs generated during training and testing are embedded below:")
 
     graphs_info = [
@@ -77,7 +97,9 @@ def build_chapters_7_to_10(doc, ch_sec):
 
     doc.add_page_break()
 
-    # CHAPTER 8.0 SCREENSHOTS AND USER MANUAL
+    # =============================================================
+    # 8.0 SCREENSHOTS AND USER MANUAL
+    # =============================================================
     set_section_header_footer(ch_sec, header_title="8.0 Screenshots and User Manual")
     add_styled_heading(doc, "8.0 SCREENSHOTS AND USER MANUAL", level=1)
 
@@ -88,7 +110,7 @@ def build_chapters_7_to_10(doc, ch_sec):
     add_body_p(doc, "4. Click 'Analyze MRI Scan'. View the classification badge, confidence %, and Grad-CAM heatmap overlay.")
     add_body_p(doc, "5. Click 'Model Performance' in the navigation bar to inspect global recall curves and ROC plots.")
 
-    add_styled_heading(doc, "8.2 Application Interface Placeholders", level=2)
+    add_styled_heading(doc, "8.2 Application Interface Screenshots", level=2)
 
     shots = [
         "[Insert Screenshot: Web Application Upload Homepage (index.html)]\nFigure 8.1: Homepage featuring interactive dropzone and medical disclaimer",
@@ -105,7 +127,9 @@ def build_chapters_7_to_10(doc, ch_sec):
 
     doc.add_page_break()
 
-    # CHAPTER 9.0 LIMITATIONS AND FUTURE ENHANCEMENTS
+    # =============================================================
+    # 9.0 LIMITATIONS AND FUTURE ENHANCEMENTS
+    # =============================================================
     set_section_header_footer(ch_sec, header_title="9.0 Limitations & Future Scope")
     add_styled_heading(doc, "9.0 LIMITATIONS AND FUTURE ENHANCEMENTS", level=1)
 
@@ -113,14 +137,16 @@ def build_chapters_7_to_10(doc, ch_sec):
     add_body_p(doc, "• Binary Classification Only: The model predicts Tumor vs No Tumor but does not differentiate glioma, meningioma, or pituitary tumors.")
     add_body_p(doc, "• Clinical Validation Requirement: Model relies on dataset distribution and requires clinical trial verification prior to diagnostic reliance.")
 
-    add_styled_heading(doc, "9.2 Future Enhancements", level=2)
+    add_styled_heading(doc, "9.2 Future Scope and Enhancements", level=2)
     add_body_p(doc, "• Multi-Class Tumor Subtyping (Glioma vs Meningioma vs Pituitary).")
     add_body_p(doc, "• 3D MRI Volume Processing using 3D-CNN / Vision Transformers (ViT).")
     add_body_p(doc, "• Cloud Microservice Deployment on AWS/GCP with authentication and DICOM file support.")
 
     doc.add_page_break()
 
-    # CHAPTER 10.0 CONCLUSION AND DISCUSSION
+    # =============================================================
+    # 10.0 CONCLUSION AND DISCUSSION
+    # =============================================================
     set_section_header_footer(ch_sec, header_title="10.0 Conclusion")
     add_styled_heading(doc, "10.0 CONCLUSION AND DISCUSSION", level=1)
     add_body_p(

@@ -1,5 +1,12 @@
+import os
+import sys
 import logging
-from app import create_app
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if BASE_DIR not in sys.path:
+    sys.path.insert(0, BASE_DIR)
+
+from app.__init__ import create_app
 
 logging.basicConfig(level=logging.INFO)
 
