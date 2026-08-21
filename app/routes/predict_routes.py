@@ -1,7 +1,7 @@
 import os
 import uuid
 import logging
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 
 from app.config import Config
@@ -14,8 +14,12 @@ logger = logging.getLogger(__name__)
 predict_bp = Blueprint("predict", __name__)
 
 
-@predict_bp.route("/predict", methods=["POST"])
+@predict_bp.route("/predict", methods=["GET", "POST"])
 def handle_predict():
+    # If accessed directly via GET (e.g., browser refresh), redirect to home upload page
+    if request.method == "GET":
+        return redirect(url_for("main.index"))
+
     try:
         if "file" not in request.files:
             return (
