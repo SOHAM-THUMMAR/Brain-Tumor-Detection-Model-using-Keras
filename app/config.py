@@ -11,6 +11,7 @@ class Config:
     MAX_CONTENT_LENGTH = MAX_FILE_SIZE_MB * 1024 * 1024
     UPLOAD_FOLDER = os.path.join(BASE_DIR, "app", "static", "uploads")
     HEATMAP_FOLDER = os.path.join(BASE_DIR, "app", "static", "heatmaps")
+    REPORTS_FOLDER = os.path.join(BASE_DIR, "app", "static", "reports")
     GRAPHS_FOLDER = os.path.join(BASE_DIR, "graphs")
     STATIC_GRAPHS_FOLDER = os.path.join(BASE_DIR, "app", "static", "graphs")
 

@@ -206,7 +206,9 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
-# App runtime uploads and heatmaps
+# App runtime uploads, heatmaps, and PDF reports
 app/static/uploads/
 app/static/heatmaps/
-app/static/graphs/
+app/static/reports/
+app/static/graphs/
+

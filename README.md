@@ -12,9 +12,12 @@ The project includes an interactive web interface powered by **Flask** that allo
 
 ### Web App Features
 - **MRI Classification:** Fast inference yielding prediction label ("Tumor" or "No Tumor") and confidence score.
-- **Grad-CAM Visualization:** Highlights the region of interest in the MRI scan driving model output.
+- **Tumor Region Localization:** Highlights the exact tumor region with an explicit red bounding box and yellow contour boundary.
+- **Grad-CAM Visualization:** Displays spatial feature activation map driving model predictions.
+- **PDF Patient Diagnostic Report:** Generates a downloadable PDF report containing scan details, diagnosis badge, confidence %, embedded images, and model metrics.
 - **Performance Dashboard:** Displays key test evaluation metrics and graphs directly in the web UI.
 - **Drag-and-Drop Interface:** Responsive UI with client-side file format validation.
+
 
 ### Web App Directory Structure
 ```
