@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI-Powered Brain Tumor Detection & Visual Diagnosis System using Convolutional Neural Networks and Grad-CAM.">
+  <title>{% block title %}NeuroScan AI - Brain Tumor Detection System{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <a href="/" class="brand" id="nav-brand">
+        <div class="brand-icon">🧠</div>
+        <span>NeuroScan AI</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/" class="nav-link {% if request.path == '/' %}active{% endif %}" id="nav-home">Home</a>
+        <a href="/stats" class="nav-link {% if request.path == '/stats' %}active{% endif %}" id="nav-stats">Model Performance</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <div class="disclaimer" id="footer-disclaimer">
+      <strong>Medical Disclaimer:</strong> This tool is for educational and research purposes only and is not a substitute for professional medical diagnosis, clinical evaluation, or treatment decisions.
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+</body>
+</html>

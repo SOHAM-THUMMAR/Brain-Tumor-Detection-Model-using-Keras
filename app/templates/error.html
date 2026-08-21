@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}{{ error_title|default('Error') }} - NeuroScan AI{% endblock %}
+
+{% block content %}
+<div class="card error-container">
+  <div class="error-icon">⚠️</div>
+  <h1 style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--tumor-red);">{{ error_title|default('An Error Occurred') }}</h1>
+  <p style="color: var(--text-muted); max-width: 550px; margin: 0 auto 2rem auto; font-size: 1.05rem;">
+    {{ error_message|default('An unexpected error occurred during processing. Please try uploading a valid brain MRI image file.') }}
+  </p>
+
+  <a href="/" class="btn-secondary" id="btn-error-home">← Return to Upload Page</a>
+</div>
+{% endblock %}
