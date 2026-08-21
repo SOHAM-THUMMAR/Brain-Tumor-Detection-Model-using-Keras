@@ -85,7 +85,7 @@ def handle_predict():
         # Generate Grad-CAM heatmap & explicit tumor region contour/bounding box highlight
         heatmap_filename_stem = saved_filename
         heatmap_relative_path, highlight_relative_path = generate_gradcam(
-            model, processed_img, orig_pil_img, heatmap_filename_stem
+            model, processed_img, orig_pil_img, heatmap_filename_stem, prediction_label=label
         )
 
         original_abs = upload_path
