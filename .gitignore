@@ -205,3 +205,8 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# App runtime uploads and heatmaps
+app/static/uploads/
+app/static/heatmaps/
+app/static/graphs/

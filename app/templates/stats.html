@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Model Performance & Validation Metrics{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="title-header">
+    <h1>Model Performance & Metrics</h1>
+    <p>Comprehensive evaluation metrics computed on the test dataset of 666 brain MRI scans.</p>
+  </div>
+
+  <div class="stats-grid">
+    <div class="metric-card">
+      <div class="metric-value">98%</div>
+      <div class="metric-label">Test Accuracy</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" style="color: var(--notumor-green);">100%</div>
+      <div class="metric-label">Tumor Recall (Sensitivity)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" style="color: var(--notumor-green);">0</div>
+      <div class="metric-label">False Negatives (Missed Tumors)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">1.000</div>
+      <div class="metric-label">Area Under ROC (AUC)</div>
+    </div>
+  </div>
+
+  <div class="metric-card" style="margin-bottom: 2rem; text-align: left;">
+    <h3 style="margin-bottom: 1rem; color: var(--accent-cyan);">Dataset & Confusion Matrix Summary</h3>
+    <p><strong>Total Test Samples:</strong> {{ metrics.total_test }} (Tumor: {{ metrics.tumor_count }} | No Tumor: {{ metrics.no_tumor_count }})</p>
+    <p style="margin-top: 0.5rem;"><strong>Confusion Matrix Array:</strong> <code>[[195, 13], [0, 458]]</code></p>
+    <ul style="margin-left: 1.5rem; margin-top: 0.5rem; color: var(--text-muted);">
+      <li>True Negatives (No Tumor correctly identified): 195</li>
+      <li>False Positives (No Tumor predicted as Tumor): 13</li>
+      <li>False Negatives (Tumor missed): <strong>0</strong></li>
+      <li>True Positives (Tumor correctly identified): 458</li>
+    </ul>
+  </div>
+
+  <h2 style="font-size: 1.5rem; margin-bottom: 1rem; text-align: center;">Evaluation Graphs</h2>
+  <div class="graphs-grid">
+    <div class="graph-card">
+      <h3>Training vs Validation Recall</h3>
+      <img src="{{ url_for('static', filename='graphs/Training vs Validation Recall.png') }}" alt="Training vs Validation Recall Plot">
+    </div>
+    <div class="graph-card">
+      <h3>Training vs Validation Loss</h3>
+      <img src="{{ url_for('static', filename='graphs/Training vs Validation Loss.png') }}" alt="Training vs Validation Loss Plot">
+    </div>
+    <div class="graph-card">
+      <h3>Confusion Matrix Heatmap</h3>
+      <img src="{{ url_for('static', filename='graphs/Confusion Matrix.png') }}" alt="Confusion Matrix Graph">
+    </div>
+    <div class="graph-card">
+      <h3>ROC Curve & AUC</h3>
+      <img src="{{ url_for('static', filename='graphs/ROC Curve.png') }}" alt="ROC Curve Graph">
+    </div>
+  </div>
+</div>
+{% endblock %}
