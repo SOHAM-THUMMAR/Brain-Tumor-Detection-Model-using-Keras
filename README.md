@@ -2,9 +2,63 @@
 
 A deep learning project for detecting the presence of brain tumors from MRI images using a Convolutional Neural Network (CNN) built with TensorFlow and Keras.
 
-This project implements a complete deep learning pipeline including data preparation, model training, evaluation, and performance visualization.
+This project implements a complete deep learning pipeline including data preparation, model training, evaluation, performance visualization, and a web deployment interface with Grad-CAM heatmaps.
 
 ---
+
+## 🌐 Web App
+
+The project includes an interactive web interface powered by **Flask** that allows users to upload brain MRI scans, perform real-time CNN inference, and visualize model attention using **Grad-CAM heatmaps**.
+
+### Web App Features
+- **MRI Classification:** Fast inference yielding prediction label ("Tumor" or "No Tumor") and confidence score.
+- **Grad-CAM Visualization:** Highlights the region of interest in the MRI scan driving model output.
+- **Performance Dashboard:** Displays key test evaluation metrics and graphs directly in the web UI.
+- **Drag-and-Drop Interface:** Responsive UI with client-side file format validation.
+
+### Web App Directory Structure
+```
+app/
+├── app.py               # Flask application entrypoint & routes
+├── model_utils.py       # Model loading, preprocessing, inference & Grad-CAM logic
+├── config.py            # App configurations and threshold parameters
+├── templates/           # Jinja2 HTML templates
+│   ├── base.html        # Shared layout, nav & disclaimer footer
+│   ├── index.html       # Drag-and-drop upload form
+│   ├── result.html      # Classification badge, confidence & Grad-CAM overlay
+│   ├── stats.html       # Performance metrics & graphs
+│   └── error.html       # User-friendly error handler
+└── static/              # CSS, JS, uploads & generated heatmaps
+```
+
+### Running the Web App Locally
+
+1. Create and activate a Python virtual environment:
+```bash
+python -m venv venv
+# On macOS/Linux:
+source venv/bin/activate
+# On Windows:
+venv\Scripts\activate
+```
+
+2. Install requirements:
+```bash
+pip install -r requirements.txt
+```
+
+3. Run the Flask server:
+```bash
+python app/app.py
+```
+
+4. Open your browser and navigate to:
+```
+http://127.0.0.1:5000
+```
+
+---
+
 
 ## 📌 Project Objective
 
