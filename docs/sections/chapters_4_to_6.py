@@ -52,7 +52,7 @@ def build_chapters_4_to_6(doc, ch_sec):
     add_body_p(
         doc,
         "Primary Use Case Scenario:\n"
-        "1. User accesses web homepage at http://127.0.0.1:5000 via one-click start.py script.\n"
+        "1. User accesses the NeuroScan AI Web Application Portal via the web interface launcher.\n"
         "2. User selects or drops a brain MRI image file (PNG/JPG).\n"
         "3. System validates file extension and size.\n"
         "4. Server executes preprocessing, CNN prediction, Grad-CAM heatmap generation, tumor bounding box contour highlighting, and PDF report creation.\n"
@@ -75,6 +75,19 @@ def build_chapters_4_to_6(doc, ch_sec):
         "• pdf_report_file: PDF document binary generated in app/static/reports/."
     )
 
+    add_styled_heading(doc, "4.7.2 E-R diagrams", level=3)
+    add_body_p(
+        doc,
+        "Entity-Relationship (E-R) Structure:\n"
+        "The system models data relationships between system actors, submitted MRI image scans, deep learning predictions, explainability visual artifacts, and generated patient diagnostic reports:\n"
+        "• Entities: USER (User_ID, Name, Role), MRI_SCAN (Scan_ID, Filename, Upload_Timestamp), MODEL_PREDICTION (Prediction_ID, Label, Confidence_%, Probability), VISUAL_EXPLAINABILITY (Artifact_ID, Heatmap_Path, HUD_Highlight_Path), and PATIENT_PDF_REPORT (Report_ID, PDF_Filename).\n"
+        "• Relationships: USER (1:N) Uploads MRI_SCAN; MRI_SCAN (1:1) Processes MODEL_PREDICTION; MODEL_PREDICTION (1:1) Generates VISUAL_EXPLAINABILITY artifacts; and MODEL_PREDICTION (1:1) Produces PATIENT_PDF_REPORT."
+    )
+    import os
+    er_img = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "er_diagram.png")
+    if os.path.exists(er_img):
+        doc.add_picture(er_img, width=Inches(6.0))
+
     add_styled_heading(doc, "4.7.3 Class Diagram", level=3)
     add_body_p(
         doc,
@@ -86,6 +99,10 @@ def build_chapters_4_to_6(doc, ch_sec):
         "• PDFService: ReportLab flowable PDF patient diagnostic report generator.\n"
         "• ValidationService: Extension and size checking."
     )
+    import os
+    class_arch_img = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "class_architecture.png")
+    if os.path.exists(class_arch_img):
+        doc.add_picture(class_arch_img, width=Inches(6.0))
 
     add_styled_heading(doc, "4.7.4 System Activity", level=3)
     add_body_p(
@@ -101,14 +118,27 @@ def build_chapters_4_to_6(doc, ch_sec):
         "DFD Level 0 (Context Diagram): User uploads MRI file to Flask Application System, which returns Classification Label, Confidence Percentage, Heatmap Image, Tumor Highlight Image, and Downloadable PDF Diagnostic Report.\n"
         "DFD Level 1: (1.0 File Validation) → (2.0 Image Preprocessing) → (3.0 Keras Model Inference) → (4.0 Grad-CAM Heatmap & Contour Highlight Generation) → (5.0 PDF Report Microservice) → (6.0 Result Template Rendering & Download Service)."
     )
+    dfd0_img = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "dfd_level0.png")
+    if os.path.exists(dfd0_img):
+        doc.add_picture(dfd0_img, width=Inches(5.8))
+    dfd1_img = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "dfd_level1.png")
+    if os.path.exists(dfd1_img):
+        doc.add_picture(dfd1_img, width=Inches(6.0))
 
-    add_styled_heading(doc, "4.8.2 Process Specification and Decision Logic", level=3)
+    add_styled_heading(doc, "4.8.3 Control flow diagram", level=3)
     add_body_p(
         doc,
-        "Decision Logic for Classification:\n"
-        "IF prediction_probability >= 0.3 THEN label = 'Tumor', confidence = probability * 100\n"
-        "ELSE label = 'No Tumor', confidence = (1 - probability) * 100"
+        "Control Flow Structure:\n"
+        "The Control Flow Diagram (CFD) defines the operational state transitions, decision predicates, error exception branches, and threshold evaluators executed during model loading, upload validation, CNN classification, Grad-CAM autograd overlay generation, and PDF streaming:\n"
+        "• Boot Stage: load_model() checks model artifact existence -> raises FileNotFoundError on missing weights; else pre-loads weights into memory.\n"
+        "• Guard Stage: POST /predict -> checks file presence, .png/.jpg extensions, and 10MB size limit; aborts HTTP 400 on error.\n"
+        "• Classification Stage: Feedforward pass -> evaluates p >= 0.3 threshold ('Tumor' vs 'No Tumor').\n"
+        "• Visual Overlay Stage: tf.GradientTape autograd -> computes JET heatmap overlay and top 50% ROI bounding box contour highlight.\n"
+        "• Report & Download Stage: ReportLab synthesizes printable PDF diagnostic report -> renders result view with download attachment button."
     )
+    cfd_img = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "control_flow_diagram.png")
+    if os.path.exists(cfd_img):
+        doc.add_picture(cfd_img, width=Inches(6.0))
 
     add_styled_heading(doc, "4.9 Main Modules of New System", level=2)
     add_body_p(

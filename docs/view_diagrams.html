@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Brain Tumor Detection System — All Project Diagrams</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      margin: 0;
+      padding: 30px;
+    }
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    h1 {
+      text-align: center;
+      color: #1e3a8a;
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #64748b;
+      font-size: 15px;
+      margin-bottom: 30px;
+    }
+    .print-tip {
+      background: #eff6ff;
+      border: 1px solid #93c5fd;
+      color: #1e40af;
+      padding: 14px 20px;
+      border-radius: 8px;
+      margin-bottom: 35px;
+      font-size: 14px;
+      text-align: center;
+    }
+    .diagram-card {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.06);
+    }
+    .diagram-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #0f172a;
+      margin-top: 0;
+      margin-bottom: 6px;
+      border-bottom: 2.5px solid #0284c7;
+      padding-bottom: 8px;
+    }
+    .diagram-desc {
+      font-size: 13.5px;
+      color: #475569;
+      margin-bottom: 22px;
+    }
+    .mermaid {
+      display: flex;
+      justify-content: center;
+      overflow-x: auto;
+      padding: 15px;
+      background-color: #ffffff;
+    }
+  </style>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'neutral',
+      flowchart: { curve: 'basis' }
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>🧠 Brain Tumor Detection System — All Project Diagrams</h1>
+    <div class="subtitle">Complete Visual Architecture, Data Flow, E-R, Class, Object Interaction, Control Flow, and Sequence Diagrams for RK University Project Report</div>
+
+    <div class="print-tip">
+      💡 <b>Screenshot Tip:</b> Scroll to any diagram below, press <code>Win + Shift + S</code> to capture a high-resolution screenshot, and paste it directly into your Project Report Word document!
+    </div>
+
+    <!-- 1. Figure 4.1 (a): DFD Level 0 -->
+    <div class="diagram-card">
+      <div class="diagram-title">1. Figure 4.1 (a): Data Flow Diagram (DFD Level 0 — Context Diagram)</div>
+      <div class="diagram-desc">Context-level boundary mapping user inputs and system output deliverables.</div>
+      <pre class="mermaid">
+graph TD
+    User["👤 External User / Radiologist / Clinician"]
+    System["🧠 0.0 Brain Tumor Classification & Explainability Pipeline"]
+
+    User -- "1. Upload MRI Image Scan File (PNG / JPG)\n2. Request PDF Patient Diagnostic Report" --> System
+    System -- "1. Render Diagnostic Result View (Label, Confidence %)\n2. Stream Downloadable Patient PDF Report" --> User
+
+    style User fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0369a1
+    style System fill:#f0f9ff,stroke:#0284c7,stroke-width:3px,color:#0f172a
+      </pre>
+    </div>
+
+    <!-- 2. Figure 4.1 (b): DFD Level 1 -->
+    <div class="diagram-card">
+      <div class="diagram-title">2. Figure 4.1 (b): Data Flow Diagram (DFD Level 1 — Core Pipeline & Data Stores)</div>
+      <div class="diagram-desc">System decomposition into 6 core processes and 5 persistent data stores.</div>
+      <pre class="mermaid">
+flowchart TB
+    subgraph External_Entity ["External Entity"]
+        User["👤 User / Radiologist"]
+    end
+
+    subgraph Data_Stores ["Persistent Data Stores"]
+        DS1[("DS1: Scan Uploads Store\n(app/static/uploads/)")]
+        DS2[("DS2: Keras Model Artifact\n(bestModel.keras)")]
+        DS3[("DS3: Explainability Artifacts\n(app/static/heatmaps/)")]
+        DS4[("DS4: Patient PDF Reports\n(app/static/reports/)")]
+        DS5[("DS5: Metric Plot Store\n(app/static/graphs/)")]
+    end
+
+    subgraph System_Processes ["System Core Processes"]
+        P1["1.0 Request Handling & Input Validation Guard"]
+        P2["2.0 Image Preprocessing & Normalization"]
+        P3["3.0 Model Inference & Decision Classification"]
+        P4["4.0 Grad-CAM Explainability & Region Highlighting"]
+        P5["5.0 Patient PDF Diagnostic Report Generation"]
+        P6["6.0 Result Rendering & Metric Presentation"]
+    end
+
+    User -- "Upload Image File" --> P1
+    P1 -- "Validated Scan Stream" --> DS1
+    DS1 -- "Raw Saved Scan Path" --> P2
+    P2 -- "Normalized Tensor (1, 224, 224, 3)" --> P3
+    
+    DS2 -- "Pre-loaded Model Weights" --> P3
+    P3 -- "Prediction Label & Confidence Score" --> P6
+    
+    P3 -- "Model Instance & Processed Tensor" --> P4
+    P4 -- "JET Heatmap & HUD Contour Images" --> DS3
+    
+    DS1 -- "Original Image Path" --> P5
+    DS3 -- "Heatmap & Highlight Paths" --> P5
+    P3 -- "Classification Label & Confidence" --> P5
+    P5 -- "Generated Patient PDF File" --> DS4
+    
+    DS4 -- "Stream Download PDF File" --> User
+    DS5 -- "Evaluation Metric Graphs" --> P6
+    P6 -- "Render HTML Dashboard View" --> User
+
+    style User fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0369a1
+    style DS1 fill:#faf5ff,stroke:#7e22ce,stroke-width:2px,color:#6b21a8
+    style DS2 fill:#faf5ff,stroke:#7e22ce,stroke-width:2px,color:#6b21a8
+    style DS3 fill:#faf5ff,stroke:#7e22ce,stroke-width:2px,color:#6b21a8
+    style DS4 fill:#faf5ff,stroke:#7e22ce,stroke-width:2px,color:#6b21a8
+    style DS5 fill:#faf5ff,stroke:#7e22ce,stroke-width:2px,color:#6b21a8
+
+    style P1 fill:#f0f9ff,stroke:#0284c7,stroke-width:2px,color:#0f172a
+    style P2 fill:#f0f9ff,stroke:#0284c7,stroke-width:2px,color:#0f172a
+    style P3 fill:#f0f9ff,stroke:#0284c7,stroke-width:2px,color:#0f172a
+    style P4 fill:#f0f9ff,stroke:#0284c7,stroke-width:2px,color:#0f172a
+    style P5 fill:#f0f9ff,stroke:#0284c7,stroke-width:2px,color:#0f172a
+    style P6 fill:#f0f9ff,stroke:#0284c7,stroke-width:2px,color:#0f172a
+      </pre>
+    </div>
+
+    <!-- 3. Entity-Relationship (E-R) Diagram -->
+    <div class="diagram-card">
+      <div class="diagram-title">3. Entity-Relationship (E-R) Diagram</div>
+      <div class="diagram-desc">Entity-relationship model of system users, MRI scan files, deep learning predictions, visual overlays, and patient PDF reports.</div>
+      <pre class="mermaid">
+erDiagram
+    USER ||--o{ MRI_SCAN : "Uploads (1:N)"
+    MRI_SCAN ||--|| MODEL_PREDICTION : "Processes (1:1)"
+    MODEL_PREDICTION ||--|| VISUAL_EXPLAINABILITY : "Generates (1:1)"
+    MODEL_PREDICTION ||--|| PATIENT_PDF_REPORT : "Produces (1:1)"
+
+    USER {
+        string User_ID PK
+        string Name
+        string Role
+    }
+    MRI_SCAN {
+        string Scan_ID PK
+        string Filename
+        timestamp Upload_Timestamp
+        float File_Size_MB
+    }
+    MODEL_PREDICTION {
+        string Prediction_ID PK
+        string Label
+        float Confidence_Percentage
+        float Raw_Probability
+    }
+    VISUAL_EXPLAINABILITY {
+        string Artifact_ID PK
+        string Heatmap_Path
+        string Highlight_Path
+    }
+    PATIENT_PDF_REPORT {
+        string Report_ID PK
+        string PDF_Filename
+        timestamp Generation_Timestamp
+    }
+      </pre>
+    </div>
+
+    <!-- 4. Figure 4.2: High-Level System Class Architecture -->
+    <div class="diagram-card">
+      <div class="diagram-title">4. Figure 4.2: High-Level System Class Architecture Diagram</div>
+      <div class="diagram-desc">UML Class Architecture depicting Config, Application Factory, Controller Blueprints, and Service Layer Singletons.</div>
+      <pre class="mermaid">
+classDiagram
+    direction TB
+
+    class Config {
+        +str BASE_DIR
+        +str MODEL_PATH
+        +tuple IMG_SIZE = (224, 224)
+        +set ALLOWED_EXTENSIONS
+        +int MAX_FILE_SIZE_MB = 10
+        +float CLASSIFICATION_THRESHOLD = 0.3
+    }
+
+    class ApplicationFactory {
+        +create_app(config_class) Flask
+    }
+
+    class PredictRoutes {
+        +handle_predict() HTTPResponse
+        +download_report(filename) HTTPResponse
+    }
+
+    class ValidationService {
+        +is_allowed_file(filename) bool
+        +is_valid_file_size(file_path) bool
+    }
+
+    class ImageService {
+        +preprocess_image(image_input) tuple
+    }
+
+    class ModelService {
+        -_MODEL_INSTANCE
+        +load_model() Model
+        +predict(model, img) tuple
+    }
+
+    class GradCAMService {
+        +generate_gradcam(...) tuple
+    }
+
+    class PDFService {
+        +generate_patient_pdf_report(...) str
+    }
+
+    ApplicationFactory ..> Config : uses
+    ApplicationFactory --> PredictRoutes : registers blueprint
+    ApplicationFactory ..> ModelService : pre-loads model singleton
+
+    PredictRoutes ..> ValidationService : validates
+    PredictRoutes ..> ImageService : resizes/normalizes
+    PredictRoutes ..> ModelService : infers
+    PredictRoutes ..> GradCAMService : visual overlays
+    PredictRoutes ..> PDFService : generates PDF
+      </pre>
+    </div>
+
+    <!-- 5. Section 4.7.5: Object Interaction Diagram -->
+    <div class="diagram-card">
+      <div class="diagram-title">5. Section 4.7.5: Object Interaction Diagram</div>
+      <div class="diagram-desc">UML Object Interaction Diagram depicting dynamic method calls between instantiated runtime service objects.</div>
+      <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    participant client as client: Browser
+    participant route as predict_bp: Blueprint
+    participant val as validator: Validation
+    participant img as preprocessor: Image
+    participant model as model: ModelSingleton
+    participant gradcam as gradcam: GradCAM
+    participant pdf as pdfEngine: PDFService
+
+    client->>route: 1: handle_predict(file upload)
+    route->>val: 2: is_allowed_file(filename)
+    val-->>route: True
+    route->>img: 3: preprocess_image(path)
+    img-->>route: (processed_img, orig_img)
+    route->>model: 4: predict(model, processed_img)
+    model-->>route: (label, confidence)
+    route->>gradcam: 5: generate_gradcam(model, processed_img, orig_img, filename, label)
+    gradcam-->>route: (heatmap_path, highlight_path)
+    route->>pdf: 6: generate_patient_pdf_report(filename, label, conf, paths...)
+    pdf-->>route: pdf_report_path
+    route-->>client: 7: Render result.html HTML Response
+      </pre>
+    </div>
+
+    <!-- 6. Section 4.8.3: Control Flow Diagram (CFD) -->
+    <div class="diagram-card">
+      <div class="diagram-title">6. Section 4.8.3: Control Flow Diagram (CFD)</div>
+      <div class="diagram-desc">Control Flow Diagram mapping execution states, decision predicates, exception branches, and threshold branching.</div>
+      <pre class="mermaid">
+flowchart TD
+    Start(["App Boot: load_model()"]) --> CheckModel{"bestModel.keras Exists?"}
+    CheckModel -- No --> ErrModel["Raise FileNotFoundError & Abort Startup"]
+    CheckModel -- Yes --> Listen["Listen for Client Requests"]
+    
+    Listen --> RecvReq["Receive HTTP POST multipart/form-data"]
+    RecvReq --> CheckPart{"file in request.files?"}
+    CheckPart -- No --> Err400_1["Return HTTP 400: No File Part"]
+    CheckPart -- Yes --> CheckExt{"is_allowed_file (.png, .jpg)?"}
+    CheckExt -- No --> Err400_2["Return HTTP 400: Invalid Extension"]
+    CheckExt -- Yes --> SaveDisk["Save File to app/static/uploads/"]
+    
+    SaveDisk --> CheckSize{"is_valid_file_size (max 10MB)?"}
+    CheckSize -- No --> DelFile["Remove Uploaded File"]
+    DelFile --> Err400_3["Return HTTP 400: File Too Large"]
+    CheckSize -- Yes --> Preproc["preprocess_image (RGB 224x224, /255.0)"]
+    
+    Preproc --> PredictPass["model.predict feedforward pass"]
+    PredictPass --> EvalThresh{"Probability >= 0.3 Threshold?"}
+    EvalThresh -- Yes --> TumorBranch["Set Label = 'Tumor', Conf = prob * 100%"]
+    EvalThresh -- No --> NoTumorBranch["Set Label = 'No Tumor', Conf = (1 - prob) * 100%"]
+    
+    TumorBranch --> GradCAMPass["tf.GradientTape Autograd Pass & Otsu Head Mask"]
+    NoTumorBranch --> GradCAMPass
+    
+    GradCAMPass --> CheckTumorVis{"Label == 'Tumor' AND max_focus > 30?"}
+    CheckTumorVis -- Yes --> DrawHUD["Isolate Top 50% ROI, Draw Crimson Fill & HUD Box"]
+    CheckTumorVis -- No --> CleanScanBadge["Draw Clean Scan Status Badge"]
+    
+    DrawHUD --> BuildPDF["generate_patient_pdf_report (ReportLab PDF Build)"]
+    CleanScanBadge --> BuildPDF
+    
+    BuildPDF --> RenderRes["Render result.html Dashboard View"]
+    RenderRes --> DownloadCheck{"Client clicks Download Report?"}
+    DownloadCheck -- Yes --> StreamPDF["Stream PDF Attachment Download"]
+    DownloadCheck -- No --> Idle(["System Ready for Next Upload"])
+
+    style Start fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0369a1
+    style ErrModel fill:#fef2f2,stroke:#ef4444,stroke-width:2px,color:#991b1b
+    style Err400_1 fill:#fef2f2,stroke:#ef4444,stroke-width:2px,color:#991b1b
+    style Err400_2 fill:#fef2f2,stroke:#ef4444,stroke-width:2px,color:#991b1b
+    style Err400_3 fill:#fef2f2,stroke:#ef4444,stroke-width:2px,color:#991b1b
+    style RenderRes fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#15803d
+    style StreamPDF fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#15803d
+      </pre>
+    </div>
+
+    <!-- 7. Component Sequence Diagram -->
+    <div class="diagram-card">
+      <div class="diagram-title">7. Component Interaction & Execution Sequence Diagram</div>
+      <div class="diagram-desc">Runtime sequence of service layer invocations for synchronous HTTP requests.</div>
+      <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    actor User as 👤 User / Radiologist
+    participant Web as 🌐 PredictRoutes
+    participant Val as 🛡️ ValidationService
+    participant Img as 🖼️ ImageService
+    participant Model as 🧠 ModelService
+    participant XAI as 🔍 GradCAMService
+    participant PDF as 📄 PDFService
+    participant Store as 💾 Storage
+
+    User->>Web: POST /predict (file upload)
+    
+    Web->>Val: is_allowed_file(filename)
+    Val-->>Web: True
+    Web->>Store: Save file to app/static/uploads/
+    Web->>Val: is_valid_file_size(upload_path)
+    Val-->>Web: True
+
+    Web->>Img: preprocess_image(upload_path)
+    Img-->>Web: (processed_img tensor, orig_pil_img)
+
+    Web->>Model: predict(model_instance, processed_img)
+    Model-->>Web: (prediction_label, confidence)
+
+    Web->>XAI: generate_gradcam(...)
+    XAI->>Store: Write heatmap_*.jpg & highlight_*.jpg
+    XAI-->>Web: (heatmap_path, highlight_path)
+
+    Web->>PDF: generate_patient_pdf_report(...)
+    PDF->>Store: Write report_*.pdf
+    PDF-->>Web: pdf_path
+
+    Web-->>User: Render result.html HTML Response
+      </pre>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -98,7 +98,7 @@ def set_section_header_footer(section, header_title="Chapter 1.0 Introduction", 
     hp = header.paragraphs[0]
     hp.text = ""
     hp.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-    hrun1 = hp.add_run("[Enrollment No: FILL_ENROLLMENT_NO]\t\t")
+    hrun1 = hp.add_run("23SOECE11081, 23SOECE11084\t\t")
     format_run(hrun1, size_pt=10, italic=True, color_rgb=(100, 100, 100))
     hrun2 = hp.add_run(header_title)
     format_run(hrun2, size_pt=10, bold=True, color_rgb=(100, 100, 100))

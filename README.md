@@ -372,6 +372,12 @@ else:
 
 ---
 
+## 📐 System Architecture & DFD
+
+Complete Data Flow Diagrams (DFD Level 0, Level 1, Level 2) and High-Level System Class Architecture Diagrams are available in [docs/diagrams.md](file:///d:/collage%20project/Brain-Tumor-Detection-Model-using-Keras/docs/diagrams.md).
+
+---
+
 ## 📄 License
 
 This project is open-source and intended for research and educational purposes.

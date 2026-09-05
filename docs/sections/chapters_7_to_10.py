@@ -105,7 +105,7 @@ def build_chapters_7_to_10(doc, ch_sec):
 
     add_styled_heading(doc, "8.1 User Operating Instructions", level=2)
     add_body_p(doc, "1. Launch the Flask Web Application by executing 'python start.py' in terminal.")
-    add_body_p(doc, "2. Open web browser and navigate to http://127.0.0.1:5000.")
+    add_body_p(doc, "2. Open web browser and navigate to the NeuroScan AI Web Application Portal.")
     add_body_p(doc, "3. Drag and drop an axial brain MRI scan image (PNG or JPG format) into the dropzone.")
     add_body_p(doc, "4. Click 'Analyze MRI Scan'. View the classification badge, confidence %, and Grad-CAM heatmap overlay.")
     add_body_p(doc, "5. Click 'Model Performance' in the navigation bar to inspect global recall curves and ROC plots.")

@@ -1,8 +1,8 @@
 from docx.shared import Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docs.config import (
-    STUDENT_NAME, ENROLLMENT_NO, PROJECT_TITLE, FULL_TITLE,
-    DEPARTMENT, GUIDE_NAME, INSTITUTE_NAME, UNIVERSITY_NAME, ACADEMIC_YEAR
+    STUDENT_NAME, ENROLLMENT_NO, STUDENT_1, STUDENT_2, PROJECT_TITLE, FULL_TITLE,
+    DEPARTMENT, GUIDE_NAME, HOD_NAME, INSTITUTE_NAME, UNIVERSITY_NAME, ACADEMIC_YEAR, SUBMISSION_DATE
 )
 from docs.styles import format_run, add_styled_heading, add_body_p
 
@@ -11,37 +11,38 @@ def build_cover_page(doc):
     p_cov_title = doc.add_paragraph()
     p_cov_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_cov_title.paragraph_format.space_before = Pt(36)
-    r = p_cov_title.add_run("A PROJECT REPORT ON\n")
+    r = p_cov_title.add_run(f"{PROJECT_TITLE}\n\n")
+    format_run(r, size_pt=20, bold=True, color_rgb=(0, 51, 102))
+
+    r = p_cov_title.add_run("A PROJECT REPORT\n")
     format_run(r, size_pt=14, bold=True)
-    r = p_cov_title.add_run(f"{FULL_TITLE}\n")
-    format_run(r, size_pt=18, bold=True, color_rgb=(0, 51, 102))
 
     p_sub = doc.add_paragraph()
     p_sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_sub.paragraph_format.space_before = Pt(24)
-    p_sub.paragraph_format.space_after = Pt(36)
-    r = p_sub.add_run("Submitted in partial fulfillment of the requirements for the degree of\n")
-    format_run(r, size_pt=12, italic=True)
-    r = p_sub.add_run("BACHELOR OF TECHNOLOGY\n")
-    format_run(r, size_pt=14, bold=True)
-    r = p_sub.add_run(f"in\n{DEPARTMENT}\n")
-    format_run(r, size_pt=12, bold=True)
+    p_sub.paragraph_format.space_before = Pt(18)
+    p_sub.paragraph_format.space_after = Pt(24)
+    r = p_sub.add_run("SUBMITTED IN PARTIAL FULFILLMENT OF THE REQUIREMENT FOR THE AWARD OF THE DEGREE OF\n\n")
+    format_run(r, size_pt=11, italic=True)
+    r = p_sub.add_run(f"B.TECH. ({DEPARTMENT.upper()}) TO\n")
+    format_run(r, size_pt=13, bold=True)
+    r = p_sub.add_run(f"{UNIVERSITY_NAME.upper()}\n")
+    format_run(r, size_pt=13, bold=True)
 
     p_by = doc.add_paragraph()
     p_by.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_by.paragraph_format.space_before = Pt(36)
-    p_by.paragraph_format.space_after = Pt(36)
-    r = p_by.add_run("Submitted By:\n")
+    p_by.paragraph_format.space_before = Pt(24)
+    p_by.paragraph_format.space_after = Pt(24)
+    r = p_by.add_run("SUBMITTED BY\n\n")
     format_run(r, size_pt=12, bold=True)
-    r = p_by.add_run(f"{STUDENT_NAME} [Enrollment No: {ENROLLMENT_NO}]\n\n")
-    format_run(r, size_pt=12, bold=True)
-
-    r = p_by.add_run("Under the Guidance of:\n")
-    format_run(r, size_pt=12, bold=True)
-    r = p_by.add_run(f"{GUIDE_NAME}\n{DEPARTMENT}\n\n")
+    r = p_by.add_run(f"Name of Student\t\tEnrollment No.\n{STUDENT_1}\n{STUDENT_2}\n\n")
     format_run(r, size_pt=12)
 
-    r = p_by.add_run(f"{INSTITUTE_NAME}\n{UNIVERSITY_NAME}\nAcademic Year: {ACADEMIC_YEAR}\n")
+    r = p_by.add_run("UNDER THE GUIDANCE OF\n\n")
+    format_run(r, size_pt=12, bold=True)
+    r = p_by.add_run(f"Internal Guide: {GUIDE_NAME}\n{INSTITUTE_NAME}\n\n")
+    format_run(r, size_pt=12)
+
+    r = p_by.add_run(f"{SUBMISSION_DATE}\n\n{INSTITUTE_NAME.upper()}\n")
     format_run(r, size_pt=12, bold=True)
 
     doc.add_page_break()
@@ -50,38 +51,39 @@ def build_cover_page(doc):
 def build_title_page(doc):
     p_t = doc.add_paragraph()
     p_t.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_t.paragraph_format.space_before = Pt(48)
+    p_t.paragraph_format.space_before = Pt(36)
     r = p_t.add_run(f"{PROJECT_TITLE}\n\n")
     format_run(r, size_pt=16, bold=True)
-    r = p_t.add_run("7th Semester B.Tech Project Report\n")
+    r = p_t.add_run("B.Tech Project Report\n")
     format_run(r, size_pt=14, italic=True)
 
     add_body_p(doc, f"Project Title: {FULL_TITLE}")
-    add_body_p(doc, f"Author / Candidate Name: {STUDENT_NAME}")
-    add_body_p(doc, f"Enrollment Number: {ENROLLMENT_NO}")
+    add_body_p(doc, f"Submitted By: {STUDENT_1}, {STUDENT_2}")
     add_body_p(doc, f"Branch / Department: {DEPARTMENT}")
     add_body_p(doc, f"Internal Guide: {GUIDE_NAME}")
+    add_body_p(doc, f"Head of Department: {HOD_NAME}")
     add_body_p(doc, f"Institution: {INSTITUTE_NAME}")
-    add_body_p(doc, "Date of Submission: [FILL SUBMISSION DATE, e.g. May 2026]")
+    add_body_p(doc, f"Date of Submission: {SUBMISSION_DATE}")
 
     doc.add_page_break()
 
 
 def build_declaration(doc):
-    add_styled_heading(doc, "CANDIDATE'S DECLARATION", level=1)
+    add_styled_heading(doc, "DECLARATION", level=1)
     add_body_p(
         doc,
-        f"I hereby declare that the project work entitled \"{PROJECT_TITLE}\" submitted to the {DEPARTMENT}, {INSTITUTE_NAME}, is a record of original work done by me under the guidance of {GUIDE_NAME}. This report has not been submitted elsewhere for the award of any degree, diploma, or title."
-    )
-    add_body_p(
-        doc,
-        "I further declare that all source codes, deep learning architectures, web application modules, automated PDF patient report microservices, and experimental results presented in this report are authentic and developed specifically for this project."
+        f"We hereby certify that We are the sole authors of this project work and that neither any part of this project work nor the whole of the project work has been submitted for a degree to any other University or Institution. We certify that, to the best of our knowledge, our project work does not infringe upon anyone’s copyright nor violate any proprietary rights and that any ideas, techniques, quotations, or any other material from the work of other people included in my/our project document, published or otherwise, are fully acknowledged in accordance with the standard referencing practices. We declare that this is a true copy of our project work, including any final revisions, as approved by my/our project review committee."
     )
 
     p_sig = doc.add_paragraph()
     p_sig.paragraph_format.space_before = Pt(48)
-    r = p_sig.add_run(f"Date: [FILL DATE]\nPlace: [FILL CITY]\n\n\n_______________________\n{STUDENT_NAME}\n(Enrollment No: {ENROLLMENT_NO})")
-    format_run(r, size_pt=12, bold=True)
+    r = p_sig.add_run(
+        f"Signature of Student (S)\n\n"
+        f"{STUDENT_1}\t\t{STUDENT_2}\n"
+        f"Date: {SUBMISSION_DATE}\t\tDate: {SUBMISSION_DATE}\n"
+        f"Place: Rajkot, Gujarat\t\tPlace: Rajkot, Gujarat"
+    )
+    format_run(r, size_pt=11, bold=True)
 
     doc.add_page_break()
 
@@ -90,13 +92,26 @@ def build_certificate(doc):
     add_styled_heading(doc, "CERTIFICATE", level=1)
     add_body_p(
         doc,
-        f"This is to certify that the project report entitled \"{PROJECT_TITLE}\" submitted by {STUDENT_NAME} (Enrollment No: {ENROLLMENT_NO}) has been successfully completed under my supervision in partial fulfillment of the requirements for the degree of Bachelor of Technology in {DEPARTMENT} from {UNIVERSITY_NAME} during the academic year {ACADEMIC_YEAR}."
+        f"This is to certify that the work which is being presented in the Project Report entitled \"{PROJECT_TITLE}\", in partial fulfillment of the requirement for the award of the degree of B.Tech. (Computer Engineering) and submitted to the {INSTITUTE_NAME}, is an authentic record of our own work carried out during a period from June 2026 to December 2026."
+    )
+    add_body_p(
+        doc,
+        "The matter presented in this Project Report has not been submitted by us for the award of any other degree elsewhere."
     )
 
     p_cert_sig = doc.add_paragraph()
-    p_cert_sig.paragraph_format.space_before = Pt(64)
-    r = p_cert_sig.add_run(f"_______________________\t\t\t_______________________\n{GUIDE_NAME}\t\t\tHead of Department\n(Project Guide)\t\t\t({DEPARTMENT})\n\n\n_______________________\nExternal Examiner")
-    format_run(r, size_pt=12, bold=True)
+    p_cert_sig.paragraph_format.space_before = Pt(48)
+    r = p_cert_sig.add_run(
+        f"Signature of Student (S)\n\n"
+        f"{STUDENT_1}, {STUDENT_2}\n\n\n"
+        f"This is to certify that the above statement made by the students is correct to the best of my knowledge.\n\n\n"
+        f"Internal Guide:\t\t\t\tHead of Department:\n"
+        f"{GUIDE_NAME}\t\t\t\t{HOD_NAME}\n"
+        f"Assistant Professor, CE / IT\t\t\t\tCE / IT, {INSTITUTE_NAME}\n"
+        f"RK University, Rajkot\t\t\t\tRK University, Rajkot\n\n"
+        f"{SUBMISSION_DATE}"
+    )
+    format_run(r, size_pt=11, bold=True)
 
     doc.add_page_break()
 
@@ -105,15 +120,19 @@ def build_acknowledgement(doc):
     add_styled_heading(doc, "ACKNOWLEDGEMENT", level=1)
     add_body_p(
         doc,
-        f"I express my deepest sense of gratitude and sincere thanks to my project guide, {GUIDE_NAME}, for invaluable guidance, encouragement, and insightful suggestions throughout the development of this project. His/Her technical expertise and continuous mentorship were instrumental in shaping the methodology and successful execution of the model, explainability heatmaps, and web application."
+        f"We express our sincere gratitude and appreciation to our project guide, {GUIDE_NAME}, for providing valuable guidance, continuous support, and constructive suggestions throughout the development of this project. Her technical expertise and encouragement greatly contributed to the successful implementation of the Brain Tumor Detection System, including the CNN model, model evaluation, Grad-CAM visualization, and web application."
     )
     add_body_p(
         doc,
-        f"I am also thankful to the Head of Department, Prof. [FILL HOD NAME], and all faculty members of the {DEPARTMENT} for providing the required computational infrastructure, software tools, and academic environment."
+        f"We would also like to express our sincere thanks to the Head of Department, {HOD_NAME}, for providing the necessary academic guidance, computational resources, and facilities required for carrying out the project."
     )
     add_body_p(
         doc,
-        "Finally, I express my sincere appreciation to my family and friends for their constant moral support, patience, and encouragement during the course of this major project."
+        f"We are grateful to all faculty members of the Department of Computer Engineering / IT for their valuable suggestions, technical guidance, and support throughout the project work."
+    )
+    add_body_p(
+        doc,
+        "Finally, We extend our sincere appreciation to everyone in the department who provided their valuable assistance and cooperation during the course of this project."
     )
 
     doc.add_page_break()
